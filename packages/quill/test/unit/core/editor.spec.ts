@@ -25,6 +25,7 @@ import { SizeClass } from '../../../src/formats/size.js';
 import Blockquote from '../../../src/formats/blockquote.js';
 import IndentClass from '../../../src/formats/indent.js';
 import { ColorClass } from '../../../src/formats/color.js';
+import Formula from '../../../src/formats/formula.js';
 import Quill from '../../../src/core.js';
 import { normalizeHTML } from '../__helpers__/utils.js';
 
@@ -42,6 +43,7 @@ const createEditor = (htmlOrContents: string | Delta) => {
       Bold,
       Image,
       ColorClass,
+      Formula,
       Link,
       FontClass,
       Header,
@@ -1393,6 +1395,27 @@ describe('Editor', () => {
       const editor = createEditor('<p><br></p>');
       editor.insertText(0, '<b>Test</b>');
       expect(editor.getHTML(0, 11)).toEqual('&lt;b&gt;Test&lt;/b&gt;');
+    });
+
+    test('escapes formula and sanitizes video urls', () => {
+      // Formula embeds require KaTeX at creation time, but this test only needs
+      // a stub because it verifies exported HTML, not the rendered formula DOM.
+      // @ts-expect-error
+      window.katex = { render: () => {} };
+      const editor = createEditor(
+        new Delta()
+          .insert({ formula: '<img src=x onerror=alert(1)>' })
+          .insert('\n')
+          .insert({ video: 'javascript:alert(1)" onclick="alert(2)' })
+          .insert('\n'),
+      );
+
+      expect(editor.getHTML(0, editor.scroll.length())).toEqual(
+        '<p><span>&lt;img src=x onerror=alert(1)&gt;</span></p><a href="about:blank">about:blank</a><p></p>',
+      );
+
+      // @ts-expect-error
+      delete window.katex;
     });
 
     test('multiline code', () => {

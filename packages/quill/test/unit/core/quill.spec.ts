@@ -610,6 +610,26 @@ describe('Quill', () => {
       `);
     });
 
+    test('escapes formula and sanitizes video urls', () => {
+      // @ts-expect-error
+      window.katex = { render: () => {} };
+      const quill = new Quill(createContainer());
+      quill.setContents(
+        new Delta()
+          .insert({ formula: '<img src=x onerror=alert(1)>' })
+          .insert('\n')
+          .insert({ video: 'javascript:alert(1)" onclick="alert(2)' })
+          .insert('\n'),
+      );
+
+      expect(quill.getSemanticHTML()).toBe(
+        '<p><span>&lt;img src=x onerror=alert(1)&gt;</span></p><a href="about:blank">about:blank</a><p></p>',
+      );
+
+      // @ts-expect-error
+      delete window.katex;
+    });
+
     test('works with range', () => {
       const quill = new Quill(createContainer('<h1>Welcome</h1>'));
       expect(quill.getText({ index: 1, length: 2 })).toMatchInlineSnapshot(
