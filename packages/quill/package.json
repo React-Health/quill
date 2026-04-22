@@ -1,5 +1,5 @@
 {
-  "name": "@reacthealth/quill",
+  "name": "@react-health/quill",
   "version": "2.0.3-reacthealth.1",
   "description": "Your powerful, rich text editor",
   "author": "Jason Chen <jhchen7@gmail.com>",
@@ -69,7 +69,7 @@
     "url": "https://github.com/React-Health/quill/issues"
   },
   "publishConfig": {
-    "@reacthealth:registry": "https://npm.pkg.github.com"
+    "@react-health:registry": "https://npm.pkg.github.com"
   },
   "prettier": {
     "singleQuote": true

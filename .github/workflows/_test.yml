@@ -37,7 +37,7 @@ jobs:
       - run: npm ci
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 1
-      - run: npm run test:fuzz -w @reacthealth/quill
+      - run: npm run test:fuzz -w @react-health/quill
   unit:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -58,6 +58,6 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps
       - run: npm run lint
-      - run: npm run test:unit -w @reacthealth/quill || npm run test:unit -w @reacthealth/quill || npm run test:unit -w @reacthealth/quill
+      - run: npm run test:unit -w @react-health/quill || npm run test:unit -w @react-health/quill || npm run test:unit -w @react-health/quill
         env:
           BROWSER: ${{ matrix.browser }}

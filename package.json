@@ -24,12 +24,12 @@
   },
   "scripts": {
     "build": "run-p build:*",
-    "build:quill": "npm run build -w @reacthealth/quill",
+    "build:quill": "npm run build -w @react-health/quill",
     "build:website": "npm run build -w website",
-    "pack:quill": "npm run build -w @reacthealth/quill && npm pack ./packages/quill/dist --cache /tmp/reacthealth-quill-npm-cache",
-    "publish:quill": "npm run build -w @reacthealth/quill && cd packages/quill/dist && npm publish --cache /tmp/reacthealth-quill-npm-cache",
+    "pack:quill": "npm run build -w @react-health/quill && npm pack ./packages/quill/dist --cache /tmp/reacthealth-quill-npm-cache",
+    "publish:quill": "npm run build -w @react-health/quill && cd packages/quill/dist && npm publish --cache /tmp/reacthealth-quill-npm-cache",
     "start": "run-p start:*",
-    "start:quill": "npm start -w @reacthealth/quill",
+    "start:quill": "npm start -w @react-health/quill",
     "start:website": "NEXT_PUBLIC_LOCAL_QUILL=true npm start -w website",
     "lint": "npm run lint -ws"
   },
